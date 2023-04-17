@@ -2,10 +2,11 @@
 
 namespace DanieleTulone\PostmanGenerator\Services;
 
+use DanieleTulone\PostmanGenerator\Contracts\PostmanServiceContract;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 
-class PostmanService
+class PostmanService implements PostmanServiceContract
 {
     /**
      * Check if already exists a collection with given name.
