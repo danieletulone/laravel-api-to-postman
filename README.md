@@ -7,7 +7,7 @@
 
 This package allows you to automatically generate a Postman collection based on your API routes. It also provides basic configuration and support for bearer auth tokens and basic auth for routes behind an auth middleware.
 
-For `POST` and `PUT` requests that utilizes a FormRequest, you can optionally scaffold the request, and publish rules in raw or human readable format.
+For `POST`, `PUT`, `GET` requests that utilizes a FormRequest, you can optionally scaffold the request, and publish rules in raw or human readable format.
 
 ## Postman Schema
 
@@ -17,8 +17,20 @@ The generator works for the latest version of the Postman Schema at the time of 
 
 Install the package:
 
-```bash
-composer require DanieleTulone/laravel-api-to-postman
+-   Update `require-dev` and `repositories` of your project composer.json:
+
+```json
+{
+    "require-dev": {
+        "danieletulone/laravel-api-to-postman": "dev-master"
+    },
+    "repositories": {
+        "danieletulone/laravel-api-to-postman": {
+            "type": "vcs",
+            "url": "https://github.com/danieletulone/laravel-api-to-postman.git"
+        }
+    }
+}
 ```
 
 Publish the config file:
