@@ -4,7 +4,7 @@ namespace DanieleTulone\PostmanGenerator\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use DanieleTulone\PostmanGenerator\Contracts\PostmanServiceContract;
-use DanieleTulone\PostmanGenerator\Http\Requests\GetCollectionRequest;
+use DanieleTulone\PostmanGenerator\Http\Requests\PostmanGetCollectionRequest;
 
 class PostmanController extends Controller
 {
@@ -19,7 +19,7 @@ class PostmanController extends Controller
     /**
      * Genarate and/or download a postman collection for current project api.
      */
-    public function getCollection(GetCollectionRequest $request)
+    public function getCollection(PostmanGetCollectionRequest $request)
     {
         $filename = $this->postmanService->getCollection($request->name);
 
