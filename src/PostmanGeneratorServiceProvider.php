@@ -29,7 +29,7 @@ class PostmanGeneratorServiceProvider extends ServiceProvider
             PostmanService::class
         );
 
-        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
     }
 
     /**
