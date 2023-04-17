@@ -4,7 +4,7 @@ namespace DanieleTulone\PostmanGenerator\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetCollectionRequest extends FormRequest
+class PostmanGetCollectionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
