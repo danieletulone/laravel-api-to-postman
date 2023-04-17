@@ -3,6 +3,8 @@
 namespace DanieleTulone\PostmanGenerator;
 
 use DanieleTulone\PostmanGenerator\Commands\ExportPostmanCommand;
+use DanieleTulone\PostmanGenerator\Contracts\PostmanServiceContract;
+use DanieleTulone\PostmanGenerator\Services\PostmanService;
 use Illuminate\Support\ServiceProvider;
 
 class PostmanGeneratorServiceProvider extends ServiceProvider
@@ -21,6 +23,13 @@ class PostmanGeneratorServiceProvider extends ServiceProvider
         }
 
         $this->commands(ExportPostmanCommand::class);
+
+        $this->app->bind(
+            PostmanServiceContract::class,
+            PostmanService::class
+        );
+
+        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
     }
 
     /**
