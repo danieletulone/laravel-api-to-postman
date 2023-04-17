@@ -47,6 +47,8 @@ Click [here](/config/api-postman.php) to view the config attributes.
 
 ## Usage
 
+### CLI (artisan)
+
 The output of the command being ran is your storage/app directory.
 
 To use the command simply run:
@@ -69,17 +71,10 @@ php artisan export:postman --basic="username:password123"
 
 If both auths are specified, bearer will be favored.
 
-## Examples
+### Route
 
-This is with the default configuration and a bearer token passed in:
-
-```bash
-php artisan export:postman --bearer=123456789
-```
-
--   [Example routes](/examples/api.php)
--   [Example default output](/examples/2021_02_04_151948_postman.json)
--   [Example structured output](/examples/2021_02_04_155327_postman.json)
+Go to `${APP_URL}/postman/download` and a postman file will be generated on fly and download.
+You can also download a file with a given name: `${APP_URL}/postman/download?name=my-project`.
 
 ## Contributing
 
