@@ -291,9 +291,7 @@ class ExportPostmanCommand extends Command
                 foreach ($nameExploded as $key => $value) {
                     if ($value == '*') {
                         $nameExploded[$key] = str_replace('*', '[0]', $value);
-                    }
-
-                    if ($key > 0) {
+                    } else if ($key > 0) {
                         $nameExploded[$key] = '[' . $value . ']';
                     }
                 }
