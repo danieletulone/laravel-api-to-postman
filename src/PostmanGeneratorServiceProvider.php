@@ -1,8 +1,8 @@
 <?php
 
-namespace AndreasElia\PostmanGenerator;
+namespace DanieleTulone\PostmanGenerator;
 
-use AndreasElia\PostmanGenerator\Commands\ExportPostmanCommand;
+use DanieleTulone\PostmanGenerator\Commands\ExportPostmanCommand;
 use Illuminate\Support\ServiceProvider;
 
 class PostmanGeneratorServiceProvider extends ServiceProvider
@@ -16,7 +16,7 @@ class PostmanGeneratorServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/api-postman.php' => config_path('api-postman.php'),
+                __DIR__ . '/../config/api-postman.php' => config_path('api-postman.php'),
             ], 'postman-config');
         }
 
@@ -31,7 +31,8 @@ class PostmanGeneratorServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/api-postman.php', 'api-postman'
+            __DIR__ . '/../config/api-postman.php',
+            'api-postman'
         );
     }
 }

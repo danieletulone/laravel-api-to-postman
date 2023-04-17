@@ -1,6 +1,6 @@
 <?php
 
-namespace AndreasElia\PostmanGenerator\Commands;
+namespace DanieleTulone\PostmanGenerator\Commands;
 
 use Closure;
 use Illuminate\Console\Command;
@@ -79,7 +79,7 @@ class ExportPostmanCommand extends Command
                     }
                 }
 
-                if (empty($middlewares) || ! $includedMiddleware) {
+                if (empty($middlewares) || !$includedMiddleware) {
                     continue;
                 }
 
@@ -89,7 +89,7 @@ class ExportPostmanCommand extends Command
 
                 $reflectionMethod = $this->getReflectionMethod($routeAction);
 
-                if (! $reflectionMethod) {
+                if (!$reflectionMethod) {
                     continue;
                 }
 
@@ -121,7 +121,7 @@ class ExportPostmanCommand extends Command
 
                             if (is_array($rule) && in_array('confirmed', $rule)) {
                                 $requestRules[] = [
-                                    'name' => $fieldName.'_confirmation',
+                                    'name' => $fieldName . '_confirmation',
                                     'description' => $printRules ? $rule : '',
                                 ];
                             }
@@ -154,7 +154,7 @@ class ExportPostmanCommand extends Command
                 if ($this->isStructured()) {
                     $routeNames = $route->action['as'] ?? null;
 
-                    if (! $routeNames) {
+                    if (!$routeNames) {
                         $routeUri = explode('/', $route->uri());
 
                         // remove "api" from the start
@@ -165,10 +165,10 @@ class ExportPostmanCommand extends Command
 
                     $routeNames = explode('.', $routeNames);
                     $routeNames = array_filter($routeNames, function ($value) {
-                        return ! is_null($value) && $value !== '';
+                        return !is_null($value) && $value !== '';
                     });
 
-                    if (! $this->createCrudFolders()) {
+                    if (!$this->createCrudFolders()) {
                         if (in_array(end($routeNames), ['index', 'store', 'show', 'update', 'destroy'])) {
                             unset($routeNames[array_key_last($routeNames)]);
                         }
@@ -187,7 +187,7 @@ class ExportPostmanCommand extends Command
 
         Storage::disk($this->config['disk'])->put($exportName = "postman/$this->filename", json_encode($this->structure));
 
-        $this->info('Postman Collection Exported: '.storage_path('app/'.$exportName));
+        $this->info('Postman Collection Exported: ' . storage_path('app/' . $exportName));
     }
 
     protected function getReflectionMethod(array $routeAction): ?object
@@ -204,7 +204,7 @@ class ExportPostmanCommand extends Command
         $routeData = explode('@', $routeAction['uses']);
         $reflection = new ReflectionClass($routeData[0]);
 
-        if (! $reflection->hasMethod($routeData[1])) {
+        if (!$reflection->hasMethod($routeData[1])) {
             return null;
         }
 
@@ -244,7 +244,7 @@ class ExportPostmanCommand extends Command
 
             unset($item);
 
-            if (! $matched) {
+            if (!$matched) {
                 $item = [
                     'name' => $segment,
                     'item' => $segment === $destination ? [$request] : [],
@@ -272,7 +272,7 @@ class ExportPostmanCommand extends Command
                 'method' => strtoupper($method),
                 'header' => $routeHeaders,
                 'url' => [
-                    'raw' => '{{base_url}}/'.$uri,
+                    'raw' => '{{base_url}}/' . $uri,
                     'host' => ['{{base_url}}'],
                     'path' => $uri->explode('/')->filter(),
                     'variable' => $variables->transform(function ($variable) {
@@ -286,18 +286,44 @@ class ExportPostmanCommand extends Command
             $ruleData = [];
 
             foreach ($requestRules as $rule) {
-                $ruleData[] = [
-                    'key' => $rule['name'],
-                    'value' => $this->config['formdata'][$rule['name']] ?? null,
-                    'type' => 'text',
-                    'description' => $printRules ? $this->parseRulesIntoHumanReadable($rule['name'], $rule['description']) : '',
-                ];
+                $nameExploded = explode('.', $rule['name']);
+
+                foreach ($nameExploded as $key => $value) {
+                    if ($value == '*') {
+                        $nameExploded[$key] = str_replace('*', '[0]', $value);
+                    }
+
+                    if ($key > 0) {
+                        $nameExploded[$key] = '[' . $value . ']';
+                    }
+                }
+
+                $rule['name'] = implode('', $nameExploded);
+
+                if ($method == 'GET') {
+                    $ruleData[] = [
+                        'key' => $rule['name'],
+                        'value' => $this->config['formdata'][$rule['name']] ?? null,
+                        'type' => 'text',
+                        'description' => $printRules ? $this->parseRulesIntoHumanReadable($rule['name'], $rule['description']) : '',
+                    ];
+                } else {
+                    $ruleData[] = [
+                        'key' => $rule['name'],
+                        'value' => $this->config['formdata'][$rule['name']] ?? null,
+                        'description' => $printRules ? $this->parseRulesIntoHumanReadable($rule['name'], $rule['description']) : '',
+                    ];
+                }
             }
 
-            $data['request']['body'] = [
-                'mode' => 'urlencoded',
-                'urlencoded' => $ruleData,
-            ];
+            if ($method == 'GET') {
+                $data['request']['url']['query'] = $ruleData;
+            } else {
+                $data['request']['body'] = [
+                    'mode' => 'urlencoded',
+                    'urlencoded' => $ruleData,
+                ];
+            }
         }
 
         return $data;
@@ -314,7 +340,7 @@ class ExportPostmanCommand extends Command
     protected function parseRulesIntoHumanReadable($attribute, $rules): string
     {
         // ... bail if user has asked for non interpreted strings:
-        if (! $this->config['rules_to_human_readable']) {
+        if (!$this->config['rules_to_human_readable']) {
             foreach ($rules as $i => $rule) {
                 // because we don't support custom rule classes, we remove them from the rules
                 if (is_subclass_of($rule, Rule::class)) {
@@ -471,7 +497,7 @@ class ExportPostmanCommand extends Command
      */
     protected function safelyStringifyClassBasedRule($probableRule): string
     {
-        if (! is_object($probableRule) || is_subclass_of($probableRule, Rule::class) || ! method_exists($probableRule, '__toString')) {
+        if (!is_object($probableRule) || is_subclass_of($probableRule, Rule::class) || !method_exists($probableRule, '__toString')) {
             return '';
         }
 

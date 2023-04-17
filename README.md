@@ -1,13 +1,14 @@
 ![Laravel API to Postman Header](/header.png)
 
-[![Latest Stable Version](https://poser.pugx.org/andreaselia/laravel-api-to-postman/v)](//packagist.org/packages/andreaselia/laravel-api-to-postman)
+[![Latest Stable Version](https://poser.pugx.org/DanieleTulone/laravel-api-to-postman/v)](//packagist.org/packages/DanieleTulone/laravel-api-to-postman)
 [![StyleCI](https://github.styleci.io/repos/323709695/shield?branch=master)](https://github.styleci.io/repos/323709695?branch=master)
 
 # Laravel API to Postman
 
 This package allows you to automatically generate a Postman collection based on your API routes. It also provides basic configuration and support for bearer auth tokens and basic auth for routes behind an auth middleware.
 
-For ```POST``` and ```PUT``` requests that utilizes a FormRequest, you can optionally scaffold the request, and publish rules in raw or human readable format.
+For `POST` and `PUT` requests that utilizes a FormRequest, you can optionally scaffold the request, and publish rules in raw or human readable format.
+
 ## Postman Schema
 
 The generator works for the latest version of the Postman Schema at the time of publication (v2.1.0).
@@ -17,13 +18,13 @@ The generator works for the latest version of the Postman Schema at the time of 
 Install the package:
 
 ```bash
-composer require andreaselia/laravel-api-to-postman
+composer require DanieleTulone/laravel-api-to-postman
 ```
 
 Publish the config file:
 
 ```bash
-php artisan vendor:publish --provider="AndreasElia\PostmanGenerator\PostmanGeneratorServiceProvider" --tag="postman-config"
+php artisan vendor:publish --provider="DanieleTulone\PostmanGenerator\PostmanGeneratorServiceProvider" --tag="postman-config"
 ```
 
 ## Configuration
@@ -64,9 +65,9 @@ This is with the default configuration and a bearer token passed in:
 php artisan export:postman --bearer=123456789
 ```
 
-- [Example routes](/examples/api.php)
-- [Example default output](/examples/2021_02_04_151948_postman.json)
-- [Example structured output](/examples/2021_02_04_155327_postman.json)
+-   [Example routes](/examples/api.php)
+-   [Example default output](/examples/2021_02_04_151948_postman.json)
+-   [Example structured output](/examples/2021_02_04_155327_postman.json)
 
 ## Contributing
 

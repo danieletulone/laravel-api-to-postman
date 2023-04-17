@@ -1,8 +1,8 @@
 <?php
 
-namespace AndreasElia\PostmanGenerator\Tests\Feature;
+namespace DanieleTulone\PostmanGenerator\Tests\Feature;
 
-use AndreasElia\PostmanGenerator\Tests\TestCase;
+use DanieleTulone\PostmanGenerator\Tests\TestCase;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
@@ -36,7 +36,7 @@ PHP);
 
         $this->artisan('export:postman')->assertExitCode(0);
 
-        $collection = json_decode(Storage::get('postman/'.config('api-postman.filename')), true);
+        $collection = json_decode(Storage::get('postman/' . config('api-postman.filename')), true);
 
         $routes = $this->app['router']->getRoutes();
 

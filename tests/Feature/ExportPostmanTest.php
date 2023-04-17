@@ -1,8 +1,8 @@
 <?php
 
-namespace AndreasElia\PostmanGenerator\Tests\Feature;
+namespace DanieleTulone\PostmanGenerator\Tests\Feature;
 
-use AndreasElia\PostmanGenerator\Tests\TestCase;
+use DanieleTulone\PostmanGenerator\Tests\TestCase;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
@@ -26,7 +26,7 @@ class ExportPostmanTest extends TestCase
 
         $this->artisan('export:postman')->assertExitCode(0);
 
-        $collection = json_decode(Storage::get('postman/'.config('api-postman.filename')), true);
+        $collection = json_decode(Storage::get('postman/' . config('api-postman.filename')), true);
 
         $routes = $this->app['router']->getRoutes();
 
@@ -52,7 +52,7 @@ class ExportPostmanTest extends TestCase
 
         $this->artisan('export:postman --bearer=1234567890')->assertExitCode(0);
 
-        $collection = json_decode(Storage::get('postman/'.config('api-postman.filename')), true);
+        $collection = json_decode(Storage::get('postman/' . config('api-postman.filename')), true);
 
         $routes = $this->app['router']->getRoutes();
 
@@ -90,7 +90,7 @@ class ExportPostmanTest extends TestCase
 
         $this->artisan('export:postman --basic=username:password1234')->assertExitCode(0);
 
-        $collection = json_decode(Storage::get('postman/'.config('api-postman.filename')), true);
+        $collection = json_decode(Storage::get('postman/' . config('api-postman.filename')), true);
 
         $routes = $this->app['router']->getRoutes();
 
@@ -133,7 +133,7 @@ class ExportPostmanTest extends TestCase
 
         $this->assertTrue(true);
 
-        $collection = json_decode(Storage::get('postman/'.config('api-postman.filename')), true);
+        $collection = json_decode(Storage::get('postman/' . config('api-postman.filename')), true);
 
         $routes = $this->app['router']->getRoutes();
 
@@ -154,7 +154,7 @@ class ExportPostmanTest extends TestCase
 
         $this->assertTrue(true);
 
-        $collection = collect(json_decode(Storage::get('postman/'.config('api-postman.filename')), true)['item']);
+        $collection = collect(json_decode(Storage::get('postman/' . config('api-postman.filename')), true)['item']);
 
         $targetRequest = $collection
             ->where('name', 'example/storeWithFormRequest')
@@ -179,7 +179,7 @@ class ExportPostmanTest extends TestCase
 
         $this->assertTrue(true);
 
-        $collection = collect(json_decode(Storage::get('postman/'.config('api-postman.filename')), true)['item']);
+        $collection = collect(json_decode(Storage::get('postman/' . config('api-postman.filename')), true)['item']);
 
         $targetRequest = $collection
             ->where('name', 'example/storeWithFormRequest')
@@ -216,7 +216,7 @@ class ExportPostmanTest extends TestCase
 
         $this->assertTrue(true);
 
-        $collection = collect(json_decode(Storage::get('postman/'.config('api-postman.filename')), true)['event']);
+        $collection = collect(json_decode(Storage::get('postman/' . config('api-postman.filename')), true)['event']);
 
         $events = $collection
             ->whereIn('listen', ['prerequest', 'test'])

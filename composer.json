@@ -1,5 +1,5 @@
 {
-    "name": "andreaselia/laravel-api-to-postman",
+    "name": "danieletulone/laravel-api-to-postman",
     "description": "Generate a Postman collection automatically from your Laravel API",
     "keywords": [
         "laravel",
@@ -14,16 +14,20 @@
         {
             "name": "Andreas Elia",
             "email": "andreaselia@live.co.uk"
+        },
+        {
+            "name": "Daniele Tulone",
+            "email": "danieletulone.work@gmail.com"
         }
     ],
     "autoload": {
         "psr-4": {
-            "AndreasElia\\PostmanGenerator\\": "src/"
+            "DanieleTulone\\PostmanGenerator\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "AndreasElia\\PostmanGenerator\\Tests\\": "tests"
+            "DanieleTulone\\PostmanGenerator\\Tests\\": "tests"
         }
     },
     "require": {
@@ -38,7 +42,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "AndreasElia\\PostmanGenerator\\PostmanGeneratorServiceProvider"
+                "DanieleTulone\\PostmanGenerator\\PostmanGeneratorServiceProvider"
             ]
         }
     },
